@@ -27,7 +27,7 @@ Fraud Detection Package with fine-tuned RoBERTa model, equipped with ethical con
 
 ## CI/CD Pipeline Status
 
-[![Fraud Detector CI/CD](https://github.com/advaithsrao/Fraud-Detector/actions/workflows/pipeline.yml/badge.svg)](https://github.com/advaithsrao/Fraud-Detector/actions/workflows/pipeline.yml)
+[![Persona LLM Chatbot CI/CD](https://github.com/vanshigupta04/Persona-LLM-Chatbot-For-QA/actions/workflows/pipeline.yml/badge.svg?branch=main)](https://github.com/vanshigupta04/Persona-LLM-Chatbot-For-QA/actions/workflows/pipeline.yml)
 
 ***
 
