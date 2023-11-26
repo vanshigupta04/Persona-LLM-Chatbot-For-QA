@@ -1,0 +1,32 @@
+
+Ubuntu 22.04.3 LTS5.15.0-78-generic
+----------------------------------------------------------------------------
+Machine Name:  	ilab1.cs          IP No:       128.6.13.2 2620:0:d60:ac0d::2
+Sun Nov 26 01:24:20 AM EST 2023	  Uptime:        	      110 days 13:06
+----------------------------------------------------------------------------
+Processes:     	1924              Local/SSH/X2Go/XRDP/VSCODE:	0/16/0/1/3          
+HostProxy:     	10                TMUX/SCREEN/JUPYTER:	39/1/1
+Connections:   	79                Load/Total Users:	116/71
+Free Memory:   	101Gi of 1.0Ti    Free Swap:     	990Gi of 990Gi
+----------------------------------------------------------------------------
+CPU Info:      	Intel(R) Xeon(R) Gold 6148 CPU @ 2.40GHz - 80 cores 
+System CPU:    	0.63%             User CPU:      	0.39%
+CPU Idle:      	95.14%            IO Wait:       	3.84%
+----------------------------------------------------------------------------
+Login as:      	za224             No. of Sessions:	1
+Avail.UserDisk:	                  Avail.Freespace:	1945.83 GB
+----------------------------------------------------------------------------
+
+Cloning into 'llama.cpp'...
+Git LFS initialized.
+Cloning into 'Llama-2-7B-Chat-GGUF'...
+Filtering content:  16% (2/12)Filtering content:  16% (2/12), 7.36 GiB | 96.35 MiB/sFiltering content:  25% (3/12), 7.36 GiB | 96.35 MiB/sFiltering content:  25% (3/12), 7.69 GiB | 2.31 MiB/s Filtering content:  33% (4/12), 7.69 GiB | 2.31 MiB/sFiltering content:  33% (4/12), 8.02 GiB | 6.37 MiB/sFiltering content:  41% (5/12), 8.02 GiB | 6.37 MiB/sFiltering content:  41% (5/12), 8.48 GiB | 10.25 MiB/sFiltering content:  50% (6/12), 8.48 GiB | 10.25 MiB/sFiltering content:  50% (6/12), 12.07 GiB | 4.96 MiB/sFiltering content:  58% (7/12), 12.07 GiB | 4.96 MiB/sFiltering content:  58% (7/12), 13.22 GiB | 13.33 MiB/sFiltering content:  66% (8/12), 13.22 GiB | 13.33 MiB/sFiltering content:  66% (8/12), 15.89 GiB | 2.14 MiB/s Filtering content:  75% (9/12), 15.89 GiB | 2.14 MiB/sFiltering content:  75% (9/12), 18.96 GiB | 20.63 MiB/sFiltering content:  83% (10/12), 18.96 GiB | 20.63 MiB/sFiltering content:  83% (10/12), 22.31 GiB | 15.49 MiB/sFiltering content:  91% (11/12), 22.31 GiB | 15.49 MiB/sFiltering content:  91% (11/12), 24.94 GiB | 10.71 MiB/sFiltering content: 100% (12/12), 24.94 GiB | 10.71 MiB/sFiltering content: 100% (12/12), 27.69 GiB | 28.29 MiB/sFiltering content: 100% (12/12), 27.69 GiB | 103.02 MiB/s, done.
+Encountered 6 file(s) that may not have been copied correctly on Windows:
+	llama-2-7b-chat.Q4_K_M.gguf
+	llama-2-7b-chat.Q5_0.gguf
+	llama-2-7b-chat.Q5_K_S.gguf
+	llama-2-7b-chat.Q5_K_M.gguf
+	llama-2-7b-chat.Q6_K.gguf
+	llama-2-7b-chat.Q8_0.gguf
+
+See: `git lfs help smudge` for more details.
