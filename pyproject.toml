@@ -25,6 +25,7 @@ torch = "2.1.0"
 #nlp packages
 regex = "*"
 nltk = "*"
+convokit = "*"
 
 #visualization packages
 matplotlib = "*"
