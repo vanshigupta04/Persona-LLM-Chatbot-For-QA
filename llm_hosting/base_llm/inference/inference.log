@@ -2,22 +2,24 @@
 Ubuntu 22.04.3 LTS5.15.0-78-generic
 ----------------------------------------------------------------------------
 Machine Name:  	ilab1.cs          IP No:       128.6.13.2 2620:0:d60:ac0d::2
-Sun Nov 26 01:31:43 AM EST 2023	  Uptime:        	      110 days 13:14
+Wed Dec  6 01:43:33 AM EST 2023	  Uptime:        	      120 days 13:25
 ----------------------------------------------------------------------------
-Processes:     	1940              Local/SSH/X2Go/XRDP/VSCODE:	0/15/0/1/3          
-HostProxy:     	9                 TMUX/SCREEN/JUPYTER:	39/1/1
-Connections:   	77                Load/Total Users:	119/69
-Free Memory:   	36Gi of 1.0Ti     Free Swap:     	990Gi of 990Gi
+Processes:     	1697              Local/SSH/X2Go/XRDP/VSCODE:	0/13/0/3/4          
+HostProxy:     	6                 TMUX/SCREEN/JUPYTER:	45/2/0
+Connections:   	51                Load/Total Users:	0/73
+Free Memory:   	40Gi of 1.0Ti     Free Swap:     	990Gi of 990Gi
 ----------------------------------------------------------------------------
 CPU Info:      	Intel(R) Xeon(R) Gold 6148 CPU @ 2.40GHz - 80 cores 
-System CPU:    	0.51%             User CPU:      	0.37%
-CPU Idle:      	95.30%            IO Wait:       	3.82%
+System CPU:    	0.66%             User CPU:      	0.43%
+CPU Idle:      	98.90%            IO Wait:       	0.01%
 ----------------------------------------------------------------------------
-Login as:      	za224             No. of Sessions:	1
-Avail.UserDisk:	                  Avail.Freespace:	1850.19 GB
+Login as:      	za224             No. of Sessions:	0
+Avail.UserDisk:	                  Avail.Freespace:	1846.38 GB
 CUDA Driver:   	11.8              CUDA Cores:    	12288
 ----------------------------------------------------------------------------
 
+/usr/local/bin/keep-job: 26: cannot create /var/run/user/91455/KeepSession: Directory nonexistent
+/usr/local/bin/keep-job: 27: cannot create /run/user/91455/LongjobLimit: Directory nonexistent
 ggml_init_cublas: GGML_CUDA_FORCE_MMQ:   no
 ggml_init_cublas: CUDA_USE_TENSOR_CORES: yes
 ggml_init_cublas: found 4 CUDA devices:
@@ -25,8 +27,8 @@ ggml_init_cublas: found 4 CUDA devices:
   Device 1: NVIDIA RTX A4000, compute capability 8.6
   Device 2: NVIDIA RTX A4000, compute capability 8.6
   Device 3: NVIDIA RTX A4000, compute capability 8.6
-{"timestamp":1700980308,"level":"INFO","function":"main","line":2534,"message":"build info","build":1565,"commit":"1ddb52e"}
-{"timestamp":1700980308,"level":"INFO","function":"main","line":2537,"message":"system info","n_threads":40,"n_threads_batch":-1,"total_threads":80,"system_info":"AVX = 1 | AVX2 = 1 | AVX512 = 1 | AVX512_VBMI = 0 | AVX512_VNNI = 0 | FMA = 1 | NEON = 0 | ARM_FMA = 0 | F16C = 1 | FP16_VA = 0 | WASM_SIMD = 0 | BLAS = 1 | SSE3 = 1 | SSSE3 = 1 | VSX = 0 | "}
+{"timestamp":1701845017,"level":"INFO","function":"main","line":2534,"message":"build info","build":1565,"commit":"1ddb52e"}
+{"timestamp":1701845017,"level":"INFO","function":"main","line":2537,"message":"system info","n_threads":40,"n_threads_batch":-1,"total_threads":80,"system_info":"AVX = 1 | AVX2 = 1 | AVX512 = 1 | AVX512_VBMI = 0 | AVX512_VNNI = 0 | FMA = 1 | NEON = 0 | ARM_FMA = 0 | F16C = 1 | FP16_VA = 0 | WASM_SIMD = 0 | BLAS = 1 | SSE3 = 1 | SSSE3 = 1 | VSX = 0 | "}
 llama_model_loader: loaded meta data with 19 key-value pairs and 291 tensors from /freespace/local/za224/llama.cpp/models/llama-2-7b-chat.Q4_K_M.gguf (version GGUF V2)
 llama_model_loader: - tensor    0:                token_embd.weight q4_K     [  4096, 32000,     1,     1 ]
 llama_model_loader: - tensor    1:           blk.0.attn_norm.weight f32      [  4096,     1,     1,     1 ]
@@ -398,13 +400,177 @@ Available slots:
 
 llama server listening at http://127.0.0.1:8080
 
-{"timestamp":1700980310,"level":"INFO","function":"main","line":2917,"message":"HTTP server listening","hostname":"127.0.0.1","port":8080}
+{"timestamp":1701845019,"level":"INFO","function":"main","line":2917,"message":"HTTP server listening","hostname":"127.0.0.1","port":8080}
 all slots are idle and system prompt is empty, clear the KV cache
 slot 0 is processing [task id: 0]
+slot 0 : in cache: 0 tokens | to process: 79 tokens
 slot 0 : kv cache rm - [0, end)
 
-print_timings: prompt eval time =     200.69 ms /    42 tokens (    4.78 ms per token,   209.28 tokens per second)
-print_timings:        eval time =    1553.32 ms /    89 runs   (   17.45 ms per token,    57.30 tokens per second)
-print_timings:       total time =    1754.01 ms
-slot 0 released (132 tokens in cache)
-{"timestamp":1700980435,"level":"INFO","function":"log_server_request","line":2478,"message":"request","remote_addr":"127.0.0.1","remote_port":50262,"status":200,"method":"POST","path":"/completion","params":{}}
+print_timings: prompt eval time =     269.76 ms /    79 tokens (    3.41 ms per token,   292.86 tokens per second)
+print_timings:        eval time =    6034.72 ms /   330 runs   (   18.29 ms per token,    54.68 tokens per second)
+print_timings:       total time =    6304.48 ms
+slot 0 released (410 tokens in cache)
+{"timestamp":1701861570,"level":"INFO","function":"log_server_request","line":2478,"message":"request","remote_addr":"127.0.0.1","remote_port":34738,"status":200,"method":"POST","path":"/completion","params":{}}
+slot 0 is processing [task id: 1]
+slot 0 : in cache: 34 tokens | to process: 33 tokens
+slot 0 : kv cache rm - [34, end)
+
+print_timings: prompt eval time =     157.08 ms /    33 tokens (    4.76 ms per token,   210.08 tokens per second)
+print_timings:        eval time =    7946.07 ms /   445 runs   (   17.86 ms per token,    56.00 tokens per second)
+print_timings:       total time =    8103.16 ms
+slot 0 released (513 tokens in cache)
+{"timestamp":1701861679,"level":"INFO","function":"log_server_request","line":2478,"message":"request","remote_addr":"127.0.0.1","remote_port":33288,"status":200,"method":"POST","path":"/completion","params":{}}
+slot 0 is processing [task id: 2]
+slot 0 : kv cache rm - [0, end)
+
+print_timings: prompt eval time =     176.23 ms /    42 tokens (    4.20 ms per token,   238.33 tokens per second)
+print_timings:        eval time =    1951.20 ms /   111 runs   (   17.58 ms per token,    56.89 tokens per second)
+print_timings:       total time =    2127.42 ms
+slot 0 released (154 tokens in cache)
+{"timestamp":1701861757,"level":"INFO","function":"log_server_request","line":2478,"message":"request","remote_addr":"127.0.0.1","remote_port":38948,"status":200,"method":"POST","path":"/completion","params":{}}
+slot 0 is processing [task id: 3]
+slot 0 : in cache: 1 tokens | to process: 66 tokens
+slot 0 : kv cache rm - [1, end)
+
+print_timings: prompt eval time =     186.93 ms /    66 tokens (    2.83 ms per token,   353.07 tokens per second)
+print_timings:        eval time =     882.40 ms /    52 runs   (   16.97 ms per token,    58.93 tokens per second)
+print_timings:       total time =    1069.34 ms
+slot 0 released (120 tokens in cache)
+{"timestamp":1701861771,"level":"INFO","function":"log_server_request","line":2478,"message":"request","remote_addr":"127.0.0.1","remote_port":35066,"status":200,"method":"POST","path":"/completion","params":{}}
+slot 0 is processing [task id: 4]
+slot 0 : in cache: 67 tokens | to process: 0 tokens
+slot 0 : kv cache rm - [67, end)
+slot 0 : we have to evaluate at least 1 token to generate logits
+
+print_timings: prompt eval time =      66.54 ms /     0 tokens (     inf ms per token,     0.00 tokens per second)
+print_timings:        eval time =   18512.51 ms /   918 runs   (   20.17 ms per token,    49.59 tokens per second)
+print_timings:       total time =   18579.04 ms
+slot 0 released (986 tokens in cache)
+{"timestamp":1701861912,"level":"INFO","function":"log_server_request","line":2478,"message":"request","remote_addr":"127.0.0.1","remote_port":49964,"status":200,"method":"POST","path":"/completion","params":{}}
+slot 0 is processing [task id: 5]
+slot 0 : in cache: 67 tokens | to process: 0 tokens
+slot 0 : kv cache rm - [67, end)
+slot 0 : we have to evaluate at least 1 token to generate logits
+
+print_timings: prompt eval time =      57.07 ms /     0 tokens (     inf ms per token,     0.00 tokens per second)
+print_timings:        eval time =    1407.91 ms /    82 runs   (   17.17 ms per token,    58.24 tokens per second)
+print_timings:       total time =    1464.98 ms
+slot 0 released (147 tokens in cache)
+{"timestamp":1701861920,"level":"INFO","function":"log_server_request","line":2478,"message":"request","remote_addr":"127.0.0.1","remote_port":51708,"status":200,"method":"POST","path":"/completion","params":{}}
+slot 0 is processing [task id: 6]
+slot 0 : in cache: 67 tokens | to process: 0 tokens
+slot 0 : kv cache rm - [67, end)
+slot 0 : we have to evaluate at least 1 token to generate logits
+
+print_timings: prompt eval time =      67.87 ms /     0 tokens (     inf ms per token,     0.00 tokens per second)
+print_timings:        eval time =    2980.30 ms /   172 runs   (   17.33 ms per token,    57.71 tokens per second)
+print_timings:       total time =    3048.17 ms
+slot 0 released (240 tokens in cache)
+{"timestamp":1701861943,"level":"INFO","function":"log_server_request","line":2478,"message":"request","remote_addr":"127.0.0.1","remote_port":49158,"status":200,"method":"POST","path":"/completion","params":{}}
+slot 0 is processing [task id: 7]
+slot 0 : in cache: 67 tokens | to process: 0 tokens
+slot 0 : kv cache rm - [67, end)
+slot 0 : we have to evaluate at least 1 token to generate logits
+
+print_timings: prompt eval time =      69.85 ms /     0 tokens (     inf ms per token,     0.00 tokens per second)
+print_timings:        eval time =    5294.72 ms /   303 runs   (   17.47 ms per token,    57.23 tokens per second)
+print_timings:       total time =    5364.56 ms
+slot 0 released (345 tokens in cache)
+{"timestamp":1701862208,"level":"INFO","function":"log_server_request","line":2478,"message":"request","remote_addr":"127.0.0.1","remote_port":38594,"status":200,"method":"POST","path":"/completion","params":{}}
+slot 0 is processing [task id: 8]
+slot 0 : in cache: 67 tokens | to process: 0 tokens
+slot 0 : kv cache rm - [67, end)
+slot 0 : we have to evaluate at least 1 token to generate logits
+
+print_timings: prompt eval time =      52.76 ms /     0 tokens (     inf ms per token,     0.00 tokens per second)
+print_timings:        eval time =    9753.24 ms /   546 runs   (   17.86 ms per token,    55.98 tokens per second)
+print_timings:       total time =    9806.00 ms
+slot 0 released (599 tokens in cache)
+{"timestamp":1701862229,"level":"INFO","function":"log_server_request","line":2478,"message":"request","remote_addr":"127.0.0.1","remote_port":51890,"status":200,"method":"POST","path":"/completion","params":{}}
+slot 0 is processing [task id: 9]
+slot 0 : in cache: 67 tokens | to process: 0 tokens
+slot 0 : kv cache rm - [67, end)
+slot 0 : we have to evaluate at least 1 token to generate logits
+
+print_timings: prompt eval time =      62.08 ms /     0 tokens (     inf ms per token,     0.00 tokens per second)
+print_timings:        eval time =    9373.54 ms /   422 runs   (   22.21 ms per token,    45.02 tokens per second)
+print_timings:       total time =    9435.62 ms
+slot 0 released (490 tokens in cache)
+{"timestamp":1701862259,"level":"INFO","function":"log_server_request","line":2478,"message":"request","remote_addr":"127.0.0.1","remote_port":43854,"status":200,"method":"POST","path":"/completion","params":{}}
+slot 0 is processing [task id: 10]
+slot 0 : in cache: 67 tokens | to process: 0 tokens
+slot 0 : kv cache rm - [67, end)
+slot 0 : we have to evaluate at least 1 token to generate logits
+
+print_timings: prompt eval time =      64.85 ms /     0 tokens (     inf ms per token,     0.00 tokens per second)
+print_timings:        eval time =    6534.33 ms /   370 runs   (   17.66 ms per token,    56.62 tokens per second)
+print_timings:       total time =    6599.18 ms
+slot 0 released (438 tokens in cache)
+{"timestamp":1701862284,"level":"INFO","function":"log_server_request","line":2478,"message":"request","remote_addr":"127.0.0.1","remote_port":46934,"status":200,"method":"POST","path":"/completion","params":{}}
+slot 0 is processing [task id: 11]
+slot 0 : in cache: 67 tokens | to process: 0 tokens
+slot 0 : kv cache rm - [67, end)
+slot 0 : we have to evaluate at least 1 token to generate logits
+
+print_timings: prompt eval time =      47.06 ms /     0 tokens (     inf ms per token,     0.00 tokens per second)
+print_timings:        eval time =    6529.82 ms /   370 runs   (   17.65 ms per token,    56.66 tokens per second)
+print_timings:       total time =    6576.88 ms
+slot 0 released (426 tokens in cache)
+{"timestamp":1701862299,"level":"INFO","function":"log_server_request","line":2478,"message":"request","remote_addr":"127.0.0.1","remote_port":46304,"status":200,"method":"POST","path":"/completion","params":{}}
+slot 0 is processing [task id: 12]
+slot 0 : in cache: 67 tokens | to process: 0 tokens
+slot 0 : kv cache rm - [67, end)
+slot 0 : we have to evaluate at least 1 token to generate logits
+
+print_timings: prompt eval time =      65.94 ms /     0 tokens (     inf ms per token,     0.00 tokens per second)
+print_timings:        eval time =   11605.23 ms /   546 runs   (   21.26 ms per token,    47.05 tokens per second)
+print_timings:       total time =   11671.17 ms
+slot 0 released (614 tokens in cache)
+{"timestamp":1701862335,"level":"INFO","function":"log_server_request","line":2478,"message":"request","remote_addr":"127.0.0.1","remote_port":45910,"status":200,"method":"POST","path":"/completion","params":{}}
+slot 0 is processing [task id: 13]
+slot 0 : in cache: 67 tokens | to process: 0 tokens
+slot 0 : kv cache rm - [67, end)
+slot 0 : we have to evaluate at least 1 token to generate logits
+
+print_timings: prompt eval time =      70.43 ms /     0 tokens (     inf ms per token,     0.00 tokens per second)
+print_timings:        eval time =    8286.22 ms /   463 runs   (   17.90 ms per token,    55.88 tokens per second)
+print_timings:       total time =    8356.65 ms
+slot 0 released (531 tokens in cache)
+{"timestamp":1701862466,"level":"INFO","function":"log_server_request","line":2478,"message":"request","remote_addr":"127.0.0.1","remote_port":57138,"status":200,"method":"POST","path":"/completion","params":{}}
+slot 0 is processing [task id: 14]
+slot 0 : in cache: 67 tokens | to process: 0 tokens
+slot 0 : kv cache rm - [67, end)
+slot 0 : we have to evaluate at least 1 token to generate logits
+
+print_timings: prompt eval time =      54.30 ms /     0 tokens (     inf ms per token,     0.00 tokens per second)
+print_timings:        eval time =   12575.50 ms /   699 runs   (   17.99 ms per token,    55.58 tokens per second)
+print_timings:       total time =   12629.80 ms
+slot 0 released (746 tokens in cache)
+{"timestamp":1701862488,"level":"INFO","function":"log_server_request","line":2478,"message":"request","remote_addr":"127.0.0.1","remote_port":47906,"status":200,"method":"POST","path":"/completion","params":{}}
+slot 0 is processing [task id: 15]
+slot 0 : kv cache rm - [0, end)
+
+print_timings: prompt eval time =     151.10 ms /    42 tokens (    3.60 ms per token,   277.96 tokens per second)
+print_timings:        eval time =    1800.71 ms /   105 runs   (   17.15 ms per token,    58.31 tokens per second)
+print_timings:       total time =    1951.81 ms
+slot 0 released (148 tokens in cache)
+{"timestamp":1701862500,"level":"INFO","function":"log_server_request","line":2478,"message":"request","remote_addr":"127.0.0.1","remote_port":60134,"status":200,"method":"POST","path":"/completion","params":{}}
+slot 0 is processing [task id: 16]
+slot 0 : in cache: 1 tokens | to process: 66 tokens
+slot 0 : kv cache rm - [1, end)
+
+print_timings: prompt eval time =     218.61 ms /    66 tokens (    3.31 ms per token,   301.91 tokens per second)
+print_timings:        eval time =    6543.70 ms /   372 runs   (   17.59 ms per token,    56.85 tokens per second)
+print_timings:       total time =    6762.31 ms
+slot 0 released (440 tokens in cache)
+{"timestamp":1701862524,"level":"INFO","function":"log_server_request","line":2478,"message":"request","remote_addr":"127.0.0.1","remote_port":43952,"status":200,"method":"POST","path":"/completion","params":{}}
+slot 0 is processing [task id: 17]
+slot 0 : in cache: 67 tokens | to process: 0 tokens
+slot 0 : kv cache rm - [67, end)
+slot 0 : we have to evaluate at least 1 token to generate logits
+
+print_timings: prompt eval time =      61.11 ms /     0 tokens (     inf ms per token,     0.00 tokens per second)
+print_timings:        eval time =    2512.71 ms /    96 runs   (   26.17 ms per token,    38.21 tokens per second)
+print_timings:       total time =    2573.83 ms
+slot 0 released (164 tokens in cache)
+{"timestamp":1701862576,"level":"INFO","function":"log_server_request","line":2478,"message":"request","remote_addr":"127.0.0.1","remote_port":57472,"status":200,"method":"POST","path":"/completion","params":{}}
