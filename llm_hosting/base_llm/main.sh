@@ -4,7 +4,7 @@ if [ "$2" = "setup" ]; then
 	echo "running setup"
 	cd setup
 	rm setup.log
-	srun --nodelist=$ILABSERVER -o setup.log setup_repos.sh
+	ssh $ILABSERVER /common/home/$USER/Persona-LLM-Chatbot-For-QA/llm_hosting/base_llm/setup/setup.sh > setup.log 2>&1 &
 	echo "setup completed"
 	cd "$original_dir"
 elif [ "$2" = "build" ]; then
@@ -21,4 +21,10 @@ elif [ "$2" = "inference" ]; then
 	rm inference.log
 	sbatch --nodelist=$ILABSERVER inference_server.sh
 	echo "inference server is set up"
+elif [ "$2" = "oai_api" ]; then
+	echo "running OPENAI like API"
+	cd inference
+	rm api.log
+	ssh $ILABSERVER /common/home/$USER/Persona-LLM-Chatbot-For-QA/llm_hosting/base_llm/inference/oai_like_api.sh > api.log 2>&1 &
+	echo "OPENAI like API is set up"
 fi
