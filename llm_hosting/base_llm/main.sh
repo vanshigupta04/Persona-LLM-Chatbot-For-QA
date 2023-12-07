@@ -1,12 +1,10 @@
 export ILABSERVER=$1
-original_dir=$(pwd)
 if [ "$2" = "setup" ]; then
 	echo "running setup"
 	cd setup
 	rm setup.log
-	ssh $ILABSERVER /common/home/$USER/Persona-LLM-Chatbot-For-QA/llm_hosting/base_llm/setup/setup.sh > setup.log 2>&1 &
+	ssh $ILABSERVER /common/home/$USER/Persona-LLM-Chatbot-For-QA/llm_hosting/base_llm/setup/setup_repos.sh > setup.log 2>&1 
 	echo "setup completed"
-	cd "$original_dir"
 elif [ "$2" = "build" ]; then
 	echo "running build"
 	cd build
@@ -14,7 +12,6 @@ elif [ "$2" = "build" ]; then
 	export PATH=/usr/local/cuda/bin:$PATH
 	srun --nodelist=$ILABSERVER -G 1 -o build.log build_llamacpp.sh
 	echo "build completed"
-	cd "$original_dir"
 elif [ "$2" = "inference" ]; then
 	echo "running inference server"
 	cd inference
