@@ -56,7 +56,7 @@ class Evaluator:
 
 if __name__ == "__main__":
 
-    #Main function is for example usage. this script is not meant to be run directly and instead called from the command line
+    #Main function is for example usage. this script is not meant to be run directly and instead called from other scripts
     # If Data and port are specified in argparse use that else use the example data
     parser = argparse.ArgumentParser()
     parser.add_argument('--data_path', '-d', type = str, default='None', help='Path to the data file')
