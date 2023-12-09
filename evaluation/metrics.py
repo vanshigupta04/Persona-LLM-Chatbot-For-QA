@@ -10,7 +10,7 @@ import os
 import sys
 sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
 
-from evaluation.utils import llm_completion
+from utils.llm import llm_completion
 
 
 class MCQMetrics:

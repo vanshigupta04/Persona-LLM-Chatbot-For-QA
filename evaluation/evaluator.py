@@ -56,19 +56,33 @@ class Evaluator:
 
 if __name__ == "__main__":
 
-    data = {
-        'question': ["What is the capital of France?", "Who wrote Hamlet?", "What is Chandler Bing's Middle Name?"],
-        'reference': ["Paris", "William Shakespeare", "Muriel"],
-        'options': [["A. Paris", "B. Rome", "C. Madrid", "D. Berlin"],
-                    ["A. William Shakespeare", "B. Charles Dickens", "C. Jane Austen", "D. Mark Twain"],
-                    ["A. Meredith", "B. Muriel", "C. Richard", "D. Robert"]],
-        'response': ["Paris", "William Shakespeare", "B"],
-    }
+    #Main function is for example usage. this script is not meant to be run directly and instead called from the command line
+    # If Data and port are specified in argparse use that else use the example data
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--data_path', '-d', type = str, default='None', help='Path to the data file')
+    parser.add_argument('--port', '-p', type = int, default=0, help='Port number for the LLM server')
+    args = parser.parse_args()
 
-    df = pd.DataFrame(data)
-    port_number = 8080
+    if args.data_path != 'None':
+        df = pd.read_csv(args.data)
+    else:
+        data = {
+            'question': ["What is the capital of France?", "Who wrote Hamlet?", "What is Chandler Bing's Middle Name?"],
+            'reference': ["Paris", "William Shakespeare", "Muriel"],
+            'options': [["A. Paris", "B. Rome", "C. Madrid", "D. Berlin"],
+                        ["A. William Shakespeare", "B. Charles Dickens", "C. Jane Austen", "D. Mark Twain"],
+                        ["A. Meredith", "B. Muriel", "C. Richard", "D. Robert"]],
+            'response': ["Paris", "William Shakespeare", "B"],
+        }
+
+        df = pd.DataFrame(data)
+    
+    if args.port != 0:
+        port_number = args.port
+    else:
+        port_number = 8080
 
     evaluator = Evaluator(data=df, port_number=port_number)
-    
+
     print(asyncio.run(evaluator.run_evaluation()))
-        
+    
