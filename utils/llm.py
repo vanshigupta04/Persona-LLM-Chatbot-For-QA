@@ -1,47 +1,100 @@
-import re
-import asyncio
-from collections import Counter
-import aiohttp
-import json
+from typing import Any, List, Mapping, Optional
+from langchain.callbacks.manager import CallbackManagerForLLMRun
+from langchain.llms.base import LLM
 import requests
+import json
 
-async def llm_completion(
-        system_instruction,
-        user_query,
-        api_url=None,
-        port=8080,
-        max_new_tokens=256,
-        top_p=0.9,
-        temperature=0.7
+class CustomLLM(LLM):
+    api_url: Optional[str] = "http://localhost:8080/completion"
+    max_new_tokens: Optional[int] = 1024
+    top_p: Optional[float] = 0.9
+    temperature: Optional[float] = 0
+    repetition_penalty: Optional[float] = 1.5
+    custom_kwargs: Optional[Mapping[str, Any]] = {}
+
+    def __init__(
+        self,
+        **kwargs: Any,
     ):
-    """
-    Returns the response from the API call
+        super().__init__(**kwargs) 
+        self.api_url = kwargs.get("api_url", self.api_url)
+        self.max_new_tokens = kwargs.get("max_new_tokens", self.max_new_tokens)
+        self.top_p = kwargs.get("top_p", self.top_p)
+        self.temperature = kwargs.get("temperature", self.temperature)
+        self.repetition_penalty = kwargs.get("repetition_penalty", self.repetition_penalty)
+        self.custom_kwargs = kwargs 
 
-    Args:
-        system_instruction (str): The system instruction.
-        user_query (str): The user query.
-        api_url (str): The API URL.
-        port (int): The port.
+    @property
+    def _llm_type(self) -> str:
+        return "custom"
 
-    Returns:
-        dict: The response from the API call.
-    """
+    async def _acall(
+        self,
+        prompt: str,
+        stop: Optional[List[str]] = None,
+        run_manager: Optional[CallbackManagerForLLMRun] = None,
+    ) -> str:
+        if stop is not None:
+            raise ValueError("stop kwargs are not permitted.")
 
-    if api_url is None:
-        api_url = f"http://localhost:{port}/completion"
-    
-    json_body = {
-        "prompt": f"[INST] <<SYS>>{system_instruction}<<SYS>> {user_query} [/INST] ",
-        "max_new_tokens":max_new_tokens, 
-        "top_p":top_p, 
-        "temperature":temperature
+        json_body = {
+        "prompt": prompt,
+        "max_new_tokens": self.max_new_tokens,
+        "top_p": self.top_p,
+        "temperature": self.temperature,
+        "repetition_penalty": self.repetition_penalty,
+        **self.custom_kwargs,
         }
-    
-    data = json.dumps(json_body)
+        data = json.dumps(json_body)
+        response = requests.request("POST", self.api_url, data=data)
+        response = json.loads(response.content.decode("utf-8"))
+        return response['content']
 
-    async with aiohttp.ClientSession() as session:
-        async with session.post(api_url, data=data) as response:
-            try:
-                return await response.json()
-            except:
-                return await response.text()
+    def _call(
+        self,
+        prompt: str,
+        stop: Optional[List[str]] = None,
+        run_manager: Optional[CallbackManagerForLLMRun] = None,
+    ) -> str:
+        if stop is not None:
+            raise ValueError("stop kwargs are not permitted.")
+
+        json_body = {
+        "prompt": prompt,
+        "max_new_tokens": self.max_new_tokens,
+        "top_p": self.top_p,
+        "temperature": self.temperature,
+        "repetition_penalty": self.repetition_penalty,
+        **self.custom_kwargs,
+        }
+        data = json.dumps(json_body)
+        response = requests.request("POST", self.api_url, data=data)
+        response = json.loads(response.content.decode("utf-8"))
+        return response['content']
+
+    @property
+    def _identifying_params(self, **kwargs: Any) -> Mapping[str, Any]:
+        identifying_params = {
+            "api_url": self.api_url,
+            "max_new_tokens": self.max_new_tokens,
+            "top_p": self.top_p,
+            "temperature": self.temperature,
+            "repetition_penalty": self.repetition_penalty,
+            **self.custom_kwargs,
+        }
+        return identifying_params
+    
+    def format_prompt(self, user_query: str, system_instruction: str = "Read instructions below and answer accordingly.", llm_answer_start:str = "") -> str:
+        prompt = f"""[INST]<<SYS>>
+        {system_instruction}
+        <<SYS>>
+        {user_query}[/INST]
+        {llm_answer_start}"""
+        return prompt
+    
+
+if __name__ == "__main__":
+    llm = CustomLLM(temperature=0.7)
+    prompt = llm.format_prompt("Who are you?",system_instruction="You are a pirate. You only answer questions in pirate english.")
+    response = llm(prompt)
+    print(response)
