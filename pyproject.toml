@@ -26,6 +26,8 @@ torch = "2.1.0"
 regex = "*"
 nltk = "*"
 convokit = "*"
+evaluate = "*"
+rouge-score = "*"
 
 #visualization packages
 matplotlib = "*"
