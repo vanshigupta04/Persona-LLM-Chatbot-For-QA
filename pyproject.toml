@@ -30,7 +30,7 @@ rouge-score = "*"
 langchain = "*"
 cohere = "*"
 InstructorEmbedding = "*"
-pipecone-client = "*"
+pinecone-client = { git = "https://github.com/pinecone-io/pinecone-python-client.git" }
 
 #mlops
 wandb = "*"
