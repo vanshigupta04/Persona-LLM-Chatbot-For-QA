@@ -6,11 +6,16 @@ from collections import Counter
 import re
 import asyncio
 import os
+import ast
+
+import configparser
+config = configparser.ConfigParser()
+config.read(os.path.join(os.path.join(os.path.dirname(__file__),'../config.ini')))
 
 import sys
 sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
 
-from utils.llm import llm_completion
+from utils.llm import CustomLLM
 
 
 class MCQMetrics:
@@ -18,7 +23,7 @@ class MCQMetrics:
 
     The MCQ metric scores are:
     """
-    def __init__(self, question, reference, options, samples=5):
+    def __init__(self, question, reference, options, samples=5, api_url="http://localhost:8080/completion"):
         """Initializes the MCQMetrics object.
 
         Args:
@@ -26,6 +31,7 @@ class MCQMetrics:
             reference (str): The reference text.
             options (list): The options.
             samples (int): The number of samples.
+            api_url (str): The API URL.
         
         Returns:
             dict: The MCQ metric scores.
@@ -35,6 +41,9 @@ class MCQMetrics:
         self.reference = reference
         self.options = options
         self.samples = samples
+        self.api_url = api_url
+
+        self.llm = CustomLLM(temperature=0.7, api_url=self.api_url)
 
     async def __call__(self) -> dict:
         """Computes all MCQ metric scores and append the average score.
@@ -45,10 +54,16 @@ class MCQMetrics:
 
         outputs = []
         answers = []
+
+        if isinstance(self.options, str):
+            self.options = ast.literal_eval(self.options)
+        
+        self.options = [option.replace('\n', ' ').strip() for option in self.options]
         option_a, option_b, option_c, option_d = self.options
 
         system_instruction = """
-            You are a huge fan of the TV Show Friends. You will be given a QUESTION and four OPTIONS. I want you to ANSWER the QUESTION with the following steps.
+            You are a huge fan of the TV Show Friends. You will be given a QUESTION and four OPTIONS. 
+            I want you to ANSWER the QUESTION with the following steps.
 
             Evaluation Steps:
             1. Read the QUESTION carefully.
@@ -68,8 +83,8 @@ class MCQMetrics:
                 OPTIONS: 
                     A. Emma
                     B. Delilah
-                    C. Bemma
-                    D. Deliluu
+                    C. Deborah
+                    D. Claire
                 ANSWER: A
             },
 
@@ -103,12 +118,12 @@ class MCQMetrics:
         other_answers = []
         while not answers:
             for _ in range(self.samples):
-                output = await llm_completion(system_instruction, user_query)
-                output = output['content']
-
+                prompt = self.llm.format_prompt(user_query=user_query, system_instruction=system_instruction)
+                output = await self.llm.ainvoke(prompt)
                 outputs.append(output)
 
-                match = re.search(r'\b(?:ANSWER|Answer is)(?:\:|) ([A-D])\b', output, flags=re.IGNORECASE)
+                pattern = r'\b(?:ANSWER|Answer is|is)(?:[:\s]*)(?:\()?([A-D])(?:\))?\b'
+                match = re.search(pattern, output, flags=re.IGNORECASE)
 
                 if match:
                     answer_choice = match.group(1)
@@ -157,19 +172,16 @@ class FreeResponseMetrics:
             response_text (str): The response text.
             reference_text (str): The reference text.
         """
-        tokenizer = RegexpTokenizer(r'\w+')
+        self.tokenizer = RegexpTokenizer(r'\w+')
+        self.llm = CustomLLM(temperature=0.7)
         
-        if response is None:
-            raise ValueError('Response text cannot be None.')
-        
-        self.response_text = response
-        self.response_text = ' '.join(tokenizer.tokenize(self.response_text))
-
         if reference is None:
             raise ValueError('Reference text cannot be None.')
         
+        self.response_text = response
+        self.question = question        
         self.reference_text = reference
-        self.reference_text = ' '.join(tokenizer.tokenize(self.reference_text))
+        
     
     async def __call__(self) -> dict:
         """Computes all free response metric scores and append the average score.
@@ -177,6 +189,16 @@ class FreeResponseMetrics:
         Returns:
             dict: The free response metric scores.
         """
+
+        if self.response_text is None:
+            if self.question is None:
+                raise ValueError('Question cannot be None.')
+            else:
+                prompt = self.llm.format_prompt(user_query=self.question, system_instruction=config.get('llm.prompt', 'system_instruction'))
+                self.response_text = await self.llm.ainvoke(prompt)
+
+        self.response_text = ' '.join(self.tokenizer.tokenize(self.response_text))
+        self.reference_text = ' '.join(self.tokenizer.tokenize(self.reference_text))
 
         bleu_score = await self.compute_bleu()
         rouge_score = await self.compute_rouge()

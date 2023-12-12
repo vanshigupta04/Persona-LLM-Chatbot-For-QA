@@ -5,6 +5,7 @@ import json
 import os
 import pandas as pd
 import asyncio
+from tqdm import tqdm
 
 import sys
 sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
@@ -15,7 +16,7 @@ from evaluation.metrics import MCQMetrics, FreeResponseMetrics
 class Evaluator:
     def __init__(self, data, port_number=8080):
         self.data = data
-        self.port_number = port_number
+        self.api_url = f"http://localhost:{port_number}/completion"
 
     async def evaluate_row(self, row):
         # Extract relevant information from the dataframe row
@@ -26,10 +27,10 @@ class Evaluator:
         if 'response' in row:
             response = row['response']
         else:
-            raise Exception('Response not found in the dataframe. Please provide a response column in the dataframe.')
+            response = None
 
         # Create instances of metrics classes
-        mcq_metrics = MCQMetrics(question, reference, options)
+        mcq_metrics = MCQMetrics(question=question, reference=reference, options=options)
         free_response_metrics = FreeResponseMetrics(question=question, reference=reference, response=response)
 
         # Run the metrics asynchronously
@@ -44,7 +45,7 @@ class Evaluator:
     async def evaluate_dataframe(self):
         results = []
 
-        for index, row in self.data.iterrows():
+        for index, row in tqdm(self.data.iterrows(), desc="Evaluating rows", total=len(self.data), ncols=80):
             result = await self.evaluate_row(row)
             results.append(result)
 
@@ -52,7 +53,9 @@ class Evaluator:
 
     async def run_evaluation(self):
         results = await self.evaluate_dataframe()
-        print(results)
+        
+        # print(results)
+        return results
 
 if __name__ == "__main__":
 
