@@ -3,6 +3,7 @@ from langchain.callbacks.manager import CallbackManagerForLLMRun
 from langchain.llms.base import LLM
 import requests
 import json
+from textwrap import dedent
 
 class CustomLLM(LLM):
     api_url: Optional[str] = "http://localhost:8080/completion"
@@ -38,12 +39,12 @@ class CustomLLM(LLM):
             raise ValueError("stop kwargs are not permitted.")
 
         json_body = {
-        "prompt": prompt,
-        "max_new_tokens": self.max_new_tokens,
-        "top_p": self.top_p,
-        "temperature": self.temperature,
-        "repetition_penalty": self.repetition_penalty,
-        **self.custom_kwargs,
+            "prompt": prompt,
+            "max_new_tokens": self.max_new_tokens,
+            "top_p": self.top_p,
+            "temperature": self.temperature,
+            "repetition_penalty": self.repetition_penalty,
+            **self.custom_kwargs,
         }
         data = json.dumps(json_body)
         response = requests.request("POST", self.api_url, data=data)
@@ -60,12 +61,12 @@ class CustomLLM(LLM):
             raise ValueError("stop kwargs are not permitted.")
 
         json_body = {
-        "prompt": prompt,
-        "max_new_tokens": self.max_new_tokens,
-        "top_p": self.top_p,
-        "temperature": self.temperature,
-        "repetition_penalty": self.repetition_penalty,
-        **self.custom_kwargs,
+            "prompt": prompt,
+            "max_new_tokens": self.max_new_tokens,
+            "top_p": self.top_p,
+            "temperature": self.temperature,
+            "repetition_penalty": self.repetition_penalty,
+            **self.custom_kwargs,
         }
         data = json.dumps(json_body)
         response = requests.request("POST", self.api_url, data=data)
@@ -84,12 +85,14 @@ class CustomLLM(LLM):
         }
         return identifying_params
     
-    def format_prompt(self, user_query: str, system_instruction: str = "Read instructions below and answer accordingly.", llm_answer_start:str = "") -> str:
+    def format_prompt(self, user_query: str, system_instruction: str = "be honest and truthful.", llm_answer_start:str = "") -> str:
         prompt = f"""[INST]<<SYS>>
-        {system_instruction}
-        <<SYS>>
-        {user_query}[/INST]
-        {llm_answer_start}"""
+            {system_instruction}
+            <<SYS>>
+            {user_query}[/INST]
+            {llm_answer_start}
+            """.replace('\n', ' ').strip()
+        
         return prompt
     
 
