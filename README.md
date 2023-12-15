@@ -1,6 +1,6 @@
 # Chatbot Personas For QA Using Fine-Tuned LLMs
 
-Fraud Detection Package with fine-tuned RoBERTa model, equipped with ethical considerations such as Differential Privacy and SMPC
+QA Chatbot Package with Specific Persona Models using Base HF models, LoRA fine-tuned models and RAG LLM Models.
 
 - [Chatbot Personas For QA Using Fine-Tuned LLMs](#chatbot-personas-for-qa-using-fine-tuned-llms)
   - [Team](#team)
